@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainAP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="274.0" prefWidth="432.0" style="-fx-background-color: #D1A5F5;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="titleLB" layoutX="131.0" layoutY="55.0" text="CAJA FUERTE" textFill="WHITE">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <Button fx:id="openBTN" alignment="CENTER" layoutX="192.0" layoutY="194.0" mnemonicParsing="false" onAction="#pressButton" style="-fx-background-color: #8F00FF;" text="Abrir" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font></Button>
+      <Label fx:id="messageLB" layoutX="119.0" layoutY="111.0" text="Escriba la combinación para ingresar: " textFill="WHITE" />
+      <ChoiceBox fx:id="firstNumberCB" layoutX="84.0" layoutY="137.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <ChoiceBox fx:id="secondNumberCB" layoutX="131.0" layoutY="137.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <ChoiceBox fx:id="thirdNumberCB" layoutX="180.0" layoutY="137.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <ChoiceBox fx:id="fourthNumberCB" layoutX="226.0" layoutY="137.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <ChoiceBox fx:id="fifthNumberCB" layoutX="272.0" layoutY="137.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <ChoiceBox fx:id="sixthNumberCB" layoutX="318.0" layoutY="138.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+   </children>
+</AnchorPane>

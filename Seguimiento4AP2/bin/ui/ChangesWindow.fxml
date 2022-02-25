@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainAP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="274.0" prefWidth="432.0" style="-fx-background-color: #D1A5F5;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="titleLB" layoutX="131.0" layoutY="14.0" text="CAJA FUERTE" textFill="WHITE">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <Button fx:id="changePassBTN" alignment="CENTER" layoutX="83.0" layoutY="217.0" mnemonicParsing="false" onAction="#changePassword" prefWidth="126.0" style="-fx-background-color: #8F00FF;" text="CAMBIAR CLAVE" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label fx:id="messageLB" layoutX="140.0" layoutY="63.0" text="Digite la combinación actual" textFill="WHITE" />
+      <ChoiceBox fx:id="firstNumberCB" layoutX="84.0" layoutY="87.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <ChoiceBox fx:id="secondNumberCB" layoutX="131.0" layoutY="87.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <ChoiceBox fx:id="thirdNumberCB" layoutX="180.0" layoutY="87.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <ChoiceBox fx:id="fourthNumberCB" layoutX="226.0" layoutY="87.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <ChoiceBox fx:id="fifthNumberCB" layoutX="272.0" layoutY="87.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <ChoiceBox fx:id="sixthNumberCB" layoutX="318.0" layoutY="88.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <Label fx:id="messageLB1" layoutX="137.0" layoutY="143.0" text="Digite la NUEVA combinación" textFill="WHITE" />
+      <ChoiceBox fx:id="firstNumberNewPassCB" layoutX="83.0" layoutY="166.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <ChoiceBox fx:id="secondNumberNewPassCB" layoutX="130.0" layoutY="166.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <ChoiceBox fx:id="thirdNumberNewPassCB" layoutX="179.0" layoutY="166.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <ChoiceBox fx:id="fourthNumberNewPassCB" layoutX="225.0" layoutY="166.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <ChoiceBox fx:id="fifthNumberNewPassCB" layoutX="271.0" layoutY="166.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <ChoiceBox fx:id="sixthNumberNewPassCB" layoutX="317.0" layoutY="167.0" prefHeight="39.0" prefWidth="39.0" style="-fx-border-width: 2; -fx-border-color: #616A6B; -fx-background-color: WHITE;" />
+      <Button fx:id="closeBoxBTN" alignment="CENTER" layoutX="232.0" layoutY="217.0" mnemonicParsing="false" onAction="#closeBox" prefHeight="30.0" prefWidth="126.0" style="-fx-background-color: #8F00FF;" text="CERRAR CAJA" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
