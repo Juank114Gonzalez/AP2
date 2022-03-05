@@ -1,44 +1,44 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Transaccion {
-	private double monto;
-	private String desc;
-	private Type tipo;
-	private Date fecha;
+	private double value;
+	private String description;
+	private Type type;
+	private LocalDate date;
 	
-	public Transaccion(double monto, String desc, Type tipo, Date fecha) {
-		this.monto = monto;
-		this.desc = desc;
-		this.tipo = tipo;
-		this.fecha = fecha;
+	public Transaccion(double value, String description, Type type, LocalDate date) {
+		this.value = value;
+		this.description = description;
+		this.type = type;
+		this.date = date;
 	}
 	
 	
-	public double getMonto() {
-		return monto;
+	public double getValue() {
+		return value;
 	}
-	public void setMonto(double monto) {
-		this.monto = monto;
+	public void setValue(double value) {
+		this.value = value;
 	}
-	public String getDesc() {
-		return desc;
+	public String getDescription() {
+		return description;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	public Type getTipo() {
-		return tipo;
+	public Type getType() {
+		return type;
 	}
-	public void setTipo(Type tipo) {
-		this.tipo = tipo;
+	public void setType(Type type) {
+		this.type = type;
 	}
-	public Date getFecha() {
-		return fecha;
+	public LocalDate getDate() {
+		return date;
 	}
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
+	public void setDate(LocalDate date) {
+		this.date = date;
 	}
 	
 	

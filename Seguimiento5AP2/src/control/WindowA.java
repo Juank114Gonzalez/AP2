@@ -2,12 +2,13 @@ package control;
 
 import java.net.URL;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,115 +19,180 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Transaccion;
 import model.TransaccionData;
+import model.Type;
 
-public class WindowA implements Initializable{
+public class WindowA implements Initializable {
 
 	private String[] types = { "GASTO", "INGRESO" };
 	
+	// Buttons
 	@FXML
 	private Button acceptBTN;
-
 	@FXML
-	private TextField dateTF;
-
+	private Button addBTN;
 	@FXML
-	private TextArea descTF;
-
+	private Button deleteBTN;
 	@FXML
-	private TextField typeTF;
+	private Button applyFilterBTN;
+	@FXML
+	private Button addBalance;
 
+	
+	// Table View
+	@FXML
+	private TableView<Transaccion> movesTable;
+	@FXML
+	private TableColumn<Transaccion, String> valueCol;
+	@FXML
+	private TableColumn<Transaccion, Type> typeCol;
+	@FXML
+	private TableColumn<Transaccion, String> descriptionCol;
+	@FXML
+	private TableColumn<Transaccion, LocalDate> dateCol;
+
+	
+	// Text Fields
+	@FXML
+	private TextField descTF;
+	@FXML
+	private TextField valueTF;
+	@FXML
+	private TextField balanceTF = new TextField();
+	@FXML
+	private TextField expensesTF = new TextField();
+	@FXML
+	private TextField incomesTF = new TextField();
+
+	// Choice Box
 	@FXML
 	private ChoiceBox<String> typeCB;
 
-	@FXML
-	private TextField valueTF;
-
-	@FXML
-	private Button addBTN;
-
-	@FXML
-	private TextField balanceTF;
-
-	@FXML
-	private TableColumn<?, ?> dateCol;
-
-	@FXML
-	private DatePicker dateDP;
-
-	@FXML
-	private Button deleteBTN;
-
-	@FXML
-	private TableColumn<?, ?> descriptionCol;
-
-	@FXML
-	private TextField descriptionTF;
-
-	@FXML
-	private TextField expensesTF;
-
+	// Date Picker
 	@FXML
 	private DatePicker higherDateDP;
-
 	@FXML
 	private DatePicker inferiorDateDP;
-
 	@FXML
-	private TextField infoundTF;
-
-	@FXML
-	private TableView<?> movesTable;
-
-	@FXML
-	private TableColumn<?, ?> nameCol;
-
-	@FXML
-	private TableColumn<?, ?> typeCol;
-
+	private DatePicker dateDP;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		completeCBs();
+
+		// Filling the choice box of types
+		fillTypeCB();
+
+		// Initialization of the columns in the table view
+		valueCol.setCellValueFactory(new PropertyValueFactory<>("value"));
+		typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+		dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+		descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 	}
 
-	void addQuantity(ActionEvent event) throws ParseException{
-		do{
-			if(!confirmDouble(valueTF.getText())) {
-				Alert alert = new Alert(Alert.AlertType.ERROR);
-				alert.setTitle("Error al ingresar el valor!");
-		        alert.setContentText("Ha digitado un valor no válido");
-		        Optional<ButtonType> result = alert.showAndWait();
+	@FXML
+	void addQuantity(ActionEvent event) throws ParseException {
+		Type tipoValor = Type.GASTO;
+
+		// Gets the values from the scene builder interface
+		String valor = "";
+		Double valorDouble = 0.0;
+		String descripcion = descTF.getText();
+		String tipo = typeCB.getValue();
+		LocalDate fecha = dateDP.getValue();
+		// Validations of the date types and classes
+		if (confirmDouble(valueTF.getText())) {
+			valor = valueTF.getText();
+			valorDouble = Double.parseDouble(valor);
+		} else {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setTitle("Error de tipo de dato");
+			alert.setContentText(
+					"El número ingresado no cuenta con el formato de tipo decimal (Use \".\" como separador)");
+			Optional<ButtonType> result = alert.showAndWait();
+		}
+
+		// sets the type according the enumeration class "Type"
+		if (tipo.equals("INGRESO")) {
+			tipoValor = Type.INGRESO;
+		}
+
+		TransaccionData.data.add(new Transaccion(valorDouble, descripcion, tipoValor, fecha));
+		movesTable.setItems(TransaccionData.data);
+		clear();
+		showBalance(event, TransaccionData.data);
+	}
+	
+    void showBalance(ActionEvent event, ObservableList<Transaccion> data) {
+		Double expenses = 0.0;
+		Double incomes = 0.0;
+		
+		for(Transaccion t : data) {
+			if(t.getType().equals(Type.GASTO)) {
+				expenses += t.getValue();
+			}else {
+				incomes += t.getValue();
 			}
+		}
 		
-		valueTF.getText();
-		descriptionTF.getText();
-		typeCB.getValue();
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-		Date fdate = new Date();
-		fdate = date.parse(dateDP.getAccessibleText());
-		}while(!confirmDouble(valueTF.getText()));
+		Double balance = incomes - expenses;
 		
-		TransaccionData.data.add(new Transaccion(valueTF.getText();, null, null, null));
+		incomesTF.setText(""+incomes);
+		expensesTF.setText(""+expenses);
+		balanceTF.setText(""+balance);
+    }
+	
+	@FXML
+	void applyFilter(ActionEvent event) {
+		ObservableList<Transaccion> filteredListPerDate = FXCollections.observableArrayList();
+		
+		LocalDate lowerDate = inferiorDateDP.getValue();
+		
+		LocalDate higherDate = higherDateDP.getValue();
+		
+		for(Transaccion t : TransaccionData.data) {
+			if ((t.getDate().isAfter(lowerDate) || t.getDate().equals(lowerDate)) 
+				&& (t.getDate().isBefore(higherDate) || t.getDate().equals(higherDate))) {
+				
+				filteredListPerDate.add(t);
+			
+			}
+		}
+		
+		movesTable.setItems(filteredListPerDate);
+		showBalance(event, filteredListPerDate);
+	}
+
+	@FXML
+	void undoFilter(ActionEvent event) {
+		movesTable.setItems(TransaccionData.data);
+		showBalance(event, TransaccionData.data);
+	}
+
+	
+	@FXML
+	void deleteElement(ActionEvent event) {
+		Transaccion p = (Transaccion) movesTable.getSelectionModel().getSelectedItem();
+        TransaccionData.data.remove(p);
 	}
 	
 	
-	public void completeCBs() {
+	/**
+	 * 
+	 */
+	public void fillTypeCB() {
 		typeCB.getItems().addAll(types);
 	}
 
-	
-
 	/**
-	 * Verifica que una cadena pueda pasarse a tipo double
+	 * Verifies that a string can be passed to type double
 	 * 
-	 * @param value, String, cadena que se revisa
-	 * @return out, boolean, true si la cadena puede pasarse a double, false de lo
-	 *         contrario
+	 * @param value, String, string being checked
+	 * @return out, boolean, true true if string can be passed to double, false
+	 *         otherwise
 	 */
 	public boolean confirmDouble(String value) {
 
@@ -144,13 +210,25 @@ public class WindowA implements Initializable{
 	}
 
 	/**
-	 * Limpia todos los text field de la interfaz
+	 * Clears all the text fields
 	 */
 	public void clear() {
-		dateTF.setText("");
-		descTF.setText("");
-		valueTF.setText("");
-		typeTF.setText("");
+	
+		if(dateDP != null) {
+			dateDP.setValue(null);
+		}
+		
+		if(descTF != null) {
+			descTF.clear();
+		}
+		
+		if(valueTF != null) {
+			valueTF.clear();
+		}
+		
+		if(typeCB != null) {
+			typeCB.setValue(null);
+		}
 	}
 
 }
