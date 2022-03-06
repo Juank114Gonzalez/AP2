@@ -28,7 +28,7 @@ import model.Type;
 public class WindowA implements Initializable {
 
 	private String[] types = { "GASTO", "INGRESO" };
-	
+
 	// Buttons
 	@FXML
 	private Button acceptBTN;
@@ -41,7 +41,6 @@ public class WindowA implements Initializable {
 	@FXML
 	private Button addBalance;
 
-	
 	// Table View
 	@FXML
 	private TableView<Transaccion> movesTable;
@@ -54,7 +53,6 @@ public class WindowA implements Initializable {
 	@FXML
 	private TableColumn<Transaccion, LocalDate> dateCol;
 
-	
 	// Text Fields
 	@FXML
 	private TextField descTF;
@@ -79,6 +77,9 @@ public class WindowA implements Initializable {
 	@FXML
 	private DatePicker dateDP;
 
+	/**
+	 * This method initializes the main window of the project 
+	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -93,6 +94,11 @@ public class WindowA implements Initializable {
 		descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 	}
 
+	/**
+	 * This method add a transaction to observable list
+	 * @param event
+	 * @throws ParseException
+	 */
 	@FXML
 	void addQuantity(ActionEvent event) throws ParseException {
 		Type tipoValor = Type.GASTO;
@@ -107,6 +113,16 @@ public class WindowA implements Initializable {
 		if (confirmDouble(valueTF.getText())) {
 			valor = valueTF.getText();
 			valorDouble = Double.parseDouble(valor);
+
+			// sets the type according the enumeration class "Type"
+			if (tipo.equals("INGRESO")) {
+				tipoValor = Type.INGRESO;
+			}
+
+			TransaccionData.data.add(new Transaccion(valorDouble, descripcion, tipoValor, fecha));
+			movesTable.setItems(TransaccionData.data);
+			clear();
+			showBalance(event, TransaccionData.data);
 		} else {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setTitle("Error de tipo de dato");
@@ -114,74 +130,85 @@ public class WindowA implements Initializable {
 					"El número ingresado no cuenta con el formato de tipo decimal (Use \".\" como separador)");
 			Optional<ButtonType> result = alert.showAndWait();
 		}
-
-		// sets the type according the enumeration class "Type"
-		if (tipo.equals("INGRESO")) {
-			tipoValor = Type.INGRESO;
-		}
-
-		TransaccionData.data.add(new Transaccion(valorDouble, descripcion, tipoValor, fecha));
-		movesTable.setItems(TransaccionData.data);
-		clear();
-		showBalance(event, TransaccionData.data);
 	}
-	
-    void showBalance(ActionEvent event, ObservableList<Transaccion> data) {
+
+	/**
+	 * This method shows transactions balance
+	 * 
+	 * @param event
+	 * @param data
+	 */
+	void showBalance(ActionEvent event, ObservableList<Transaccion> data) {
 		Double expenses = 0.0;
 		Double incomes = 0.0;
-		
-		for(Transaccion t : data) {
-			if(t.getType().equals(Type.GASTO)) {
+
+		for (Transaccion t : data) {
+			if (t.getType().equals(Type.GASTO)) {
 				expenses += t.getValue();
-			}else {
+			} else {
 				incomes += t.getValue();
 			}
 		}
-		
+
 		Double balance = incomes - expenses;
-		
-		incomesTF.setText(""+incomes);
-		expensesTF.setText(""+expenses);
-		balanceTF.setText(""+balance);
-    }
-	
+
+		incomesTF.setText("$" + incomes);
+		expensesTF.setText("$" + expenses);
+		balanceTF.setText("$" + balance);
+	}
+
+	/**
+	 * This method applies a filter
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void applyFilter(ActionEvent event) {
 		ObservableList<Transaccion> filteredListPerDate = FXCollections.observableArrayList();
-		
+
 		LocalDate lowerDate = inferiorDateDP.getValue();
-		
+
 		LocalDate higherDate = higherDateDP.getValue();
-		
-		for(Transaccion t : TransaccionData.data) {
-			if ((t.getDate().isAfter(lowerDate) || t.getDate().equals(lowerDate)) 
-				&& (t.getDate().isBefore(higherDate) || t.getDate().equals(higherDate))) {
-				
+
+		for (Transaccion t : TransaccionData.data) {
+			if ((t.getDate().isAfter(lowerDate) || t.getDate().equals(lowerDate))
+					&& (t.getDate().isBefore(higherDate) || t.getDate().equals(higherDate))) {
+
 				filteredListPerDate.add(t);
-			
+
 			}
 		}
-		
+
 		movesTable.setItems(filteredListPerDate);
 		showBalance(event, filteredListPerDate);
 	}
 
+	/**
+	 * This method undo the filter
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void undoFilter(ActionEvent event) {
 		movesTable.setItems(TransaccionData.data);
 		showBalance(event, TransaccionData.data);
 	}
 
-	
+	/**
+	 * This method deletes a tableView's element
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void deleteElement(ActionEvent event) {
+		addBTN.setDisable(true);
 		Transaccion p = (Transaccion) movesTable.getSelectionModel().getSelectedItem();
-        TransaccionData.data.remove(p);
+		TransaccionData.data.remove(p);
+		showBalance(event, TransaccionData.data);
 	}
-	
-	
+
 	/**
-	 * 
+	 * This method sets items of typeCB
 	 */
 	public void fillTypeCB() {
 		typeCB.getItems().addAll(types);
@@ -213,20 +240,20 @@ public class WindowA implements Initializable {
 	 * Clears all the text fields
 	 */
 	public void clear() {
-	
-		if(dateDP != null) {
+
+		if (dateDP != null) {
 			dateDP.setValue(null);
 		}
-		
-		if(descTF != null) {
+
+		if (descTF != null) {
 			descTF.clear();
 		}
-		
-		if(valueTF != null) {
+
+		if (valueTF != null) {
 			valueTF.clear();
 		}
-		
-		if(typeCB != null) {
+
+		if (typeCB != null) {
 			typeCB.setValue(null);
 		}
 	}

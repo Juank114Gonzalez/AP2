@@ -10,10 +10,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="628.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="628.0" style="-fx-background-color: #dec8ab;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="addBTN" layoutX="464.0" layoutY="220.0" mnemonicParsing="false" onAction="#addQuantity" prefHeight="25.0" prefWidth="150.0" text="Añadir" />
-      <TableView fx:id="movesTable" layoutX="14.0" layoutY="14.0" prefHeight="207.0" prefWidth="360.0">
+      <Button fx:id="addBTN" layoutX="464.0" layoutY="220.0" mnemonicParsing="false" onAction="#addQuantity" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #00ad00;" text="Añadir" />
+      <TableView fx:id="movesTable" layoutX="14.0" layoutY="14.0" prefHeight="207.0" prefWidth="360.0" style="-fx-background-color: #C0C0C0;">
          <columns>
             <TableColumn fx:id="valueCol" prefWidth="93.0" text="Valor" />
             <TableColumn fx:id="typeCol" prefWidth="73.0" text="Tipo" />
@@ -21,7 +21,7 @@
             <TableColumn fx:id="dateCol" prefWidth="109.0" text="Fecha" />
          </columns>
       </TableView>
-      <TextField fx:id="valueTF" layoutX="464.0" layoutY="32.0" />
+      <TextField fx:id="valueTF" layoutX="464.0" layoutY="32.0" promptText="\$" />
       <Label layoutX="390.0" layoutY="36.0" text="Valor">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -33,8 +33,8 @@
          </font>
       </Label>
       <ChoiceBox fx:id="typeCB" layoutX="464.0" layoutY="117.0" prefWidth="150.0" />
-      <DatePicker fx:id="dateDP" layoutX="464.0" layoutY="158.0" prefHeight="25.0" prefWidth="150.0" />
-      <Button fx:id="deleteBTN" layoutX="464.0" layoutY="255.0" mnemonicParsing="false" onAction="#deleteElement" prefHeight="25.0" prefWidth="149.0" text="Eliminar" />
+      <DatePicker fx:id="dateDP" editable="false" layoutX="464.0" layoutY="158.0" prefHeight="25.0" prefWidth="150.0" promptText="AAAA/MM/DD" />
+      <Button fx:id="deleteBTN" layoutX="464.0" layoutY="255.0" mnemonicParsing="false" onAction="#deleteElement" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #FF0000;" text="Eliminar" />
       <Label layoutX="390.0" layoutY="121.0" text="Tipo">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -45,8 +45,8 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <DatePicker fx:id="inferiorDateDP" layoutX="110.0" layoutY="280.0" />
-      <DatePicker fx:id="higherDateDP" layoutX="110.0" layoutY="316.0" />
+      <DatePicker fx:id="inferiorDateDP" editable="false" layoutX="110.0" layoutY="280.0" promptText="AAAA/MM/DD" />
+      <DatePicker fx:id="higherDateDP" editable="false" layoutX="110.0" layoutY="316.0" promptText="AAAA/MM/DD" />
       <Label layoutX="390.0" layoutY="336.0" text="Ingreso:">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -55,8 +55,8 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <TextField fx:id="incomesTF" editable="false" layoutX="464.0" layoutY="331.0" prefHeight="25.0" prefWidth="149.0" />
-      <TextField fx:id="expensesTF" editable="false" layoutX="464.0" layoutY="361.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="incomesTF" editable="false" layoutX="464.0" layoutY="331.0" prefHeight="25.0" prefWidth="149.0" promptText="\$" />
+      <TextField fx:id="expensesTF" editable="false" layoutX="464.0" layoutY="361.0" prefHeight="25.0" prefWidth="149.0" promptText="\$" />
       <Label layoutX="51.0" layoutY="247.0" text="Filtrar por fecha:">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -69,9 +69,9 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="applyFilterBTN" layoutX="134.0" layoutY="361.0" mnemonicParsing="false" onAction="#applyFilter" prefHeight="25.0" prefWidth="150.0" text="Aplicar filtro" />
-      <TextField fx:id="balanceTF" editable="false" layoutX="464.0" layoutY="391.0" prefHeight="25.0" prefWidth="149.0" />
-      <Button fx:id="undoBTN" layoutX="134.0" layoutY="391.0" mnemonicParsing="false" onAction="#undoFilter" prefHeight="25.0" prefWidth="150.0" text="Deshacer filtrado" />
-      <TextField fx:id="descTF" layoutX="464.0" layoutY="73.0" />
+      <Button fx:id="applyFilterBTN" layoutX="134.0" layoutY="361.0" mnemonicParsing="false" onAction="#applyFilter" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #bc8e52;" text="Aplicar filtro" />
+      <TextField fx:id="balanceTF" editable="false" layoutX="464.0" layoutY="391.0" prefHeight="25.0" prefWidth="149.0" promptText="\$" />
+      <Button fx:id="undoBTN" layoutX="134.0" layoutY="391.0" mnemonicParsing="false" onAction="#undoFilter" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #d68b00;" text="Deshacer filtrado" />
+      <TextField fx:id="descTF" layoutX="464.0" layoutY="73.0" promptText="¿De que se trara?" />
    </children>
 </AnchorPane>
