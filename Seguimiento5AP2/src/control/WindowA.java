@@ -193,6 +193,7 @@ public class WindowA implements Initializable {
 		movesTable.setItems(TransaccionData.data);
 		showBalance(event, TransaccionData.data);
 	}
+	
 
 	/**
 	 * This method deletes a tableView's element
@@ -201,7 +202,7 @@ public class WindowA implements Initializable {
 	 */
 	@FXML
 	void deleteElement(ActionEvent event) {
-		addBTN.setDisable(true);
+		undoFilter(event);
 		Transaccion p = (Transaccion) movesTable.getSelectionModel().getSelectedItem();
 		TransaccionData.data.remove(p);
 		showBalance(event, TransaccionData.data);
