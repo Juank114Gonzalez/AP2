@@ -1,49 +1,111 @@
 package model;
 
-import java.util.Collections;
-
-public class Country {
+public class Country implements Comparable<Country>{
 	
-
 	private String name;
+	private int goldMaleMedal;
+	private int silverMaleMedal;
+	private int bronzeMaleMedal;
+	private int goldMFeminineMedal;
+	private int silverFeminineMedal;
+	private int bronzeFeminineMedal;
 
-	private String[] maleMedals;
-	private String[] femaleMedals;
-	/*
-	 * ---------Constructor---------
-	 */
-	public Country(String name, String[] maleMedals, String[] femaleMedals) {
-		super();
-		this.name = name;
-		this.maleMedals = maleMedals;
-		this.femaleMedals = femaleMedals;
-	}
-	/*
-	 * ---------Getters and Setters---------
-	 */
 
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String[] getMaleMedals() {
-		return maleMedals;
+	public int getGoldMaleMedal() {
+		return goldMaleMedal;
+	}
+	public void setGoldMaleMedal(int goldMaleMedal) {
+		this.goldMaleMedal = goldMaleMedal;
+	}
+	public int getSilverMaleMedal() {
+		return silverMaleMedal;
+	}
+	public void setSilverMaleMedal(int silverMaleMedal) {
+		this.silverMaleMedal = silverMaleMedal;
+	}
+	public int getBronzeMaleMedal() {
+		return bronzeMaleMedal;
+	}
+	public void setBronzeMaleMedal(int bronzeMaleMedal) {
+		this.bronzeMaleMedal = bronzeMaleMedal;
+	}
+	public int getGoldMFeminineMedal() {
+		return goldMFeminineMedal;
+	}
+	public void setGoldMFeminineMedal(int goldMFeminineMedal) {
+		this.goldMFeminineMedal = goldMFeminineMedal;
+	}
+	public int getSilverFeminineMedal() {
+		return silverFeminineMedal;
+	}
+	public void setSilverFeminineMedal(int silverFeminineMedal) {
+		this.silverFeminineMedal = silverFeminineMedal;
+	}
+	public int getBronzeFeminineMedal() {
+		return bronzeFeminineMedal;
+	}
+	public void setBronzeFeminineMedal(int bronzeFeminineMedal) {
+		this.bronzeFeminineMedal = bronzeFeminineMedal;
+	}
+	
+	public Country(String name, int goldMaleMedal, int silverMaleMedal, int bronzeMaleMedal, int goldMFeminineMedal, int silverFeminineMedal, int bronzeFeminineMedal) {
+		this.name = name;
+		this.goldMaleMedal = goldMaleMedal;
+		this.silverMaleMedal = silverMaleMedal;
+		this.bronzeMaleMedal = bronzeMaleMedal;
+		this.goldMFeminineMedal = goldMFeminineMedal;
+		this.silverFeminineMedal = silverFeminineMedal;
+		this.bronzeFeminineMedal = bronzeFeminineMedal;
 	}
 
-	public void setMaleMedals(String[] maleMedals) {
-		this.maleMedals = maleMedals;
+	public String toString(int a) {
+		String info = "";
+		switch(a) {
+			case 1:
+				info += name + " " 
+					 + goldMaleMedal + " " 
+					 + silverMaleMedal + " " 
+					 + bronzeMaleMedal;
+			break;
+			case 2:
+				info += name + " " 
+					 + goldMFeminineMedal + " " 
+					 + silverFeminineMedal + " " 
+					 + bronzeFeminineMedal;
+			break;
+			default:
+				info += name + " " 
+					 + (goldMaleMedal + goldMFeminineMedal)+ " " 
+					 + (silverMaleMedal + silverFeminineMedal)
+					 + " " + (bronzeMaleMedal + bronzeFeminineMedal);
+			break;
+		}
+		return info;
 	}
-
-	public String[] getFemaleMedals() {
-		return femaleMedals;
-	}
-
-	public void setFemaleMedals(String[] femaleMedals) {
-		this.femaleMedals = femaleMedals;
+	
+	@Override
+	public int compareTo(Country o) {
+		Country A = this;
+		Country B = o;
+		
+		int output = A.getGoldMFeminineMedal() - B.getGoldMFeminineMedal();
+		
+		if(output == 0) {
+			output = A.getSilverFeminineMedal() - B.getSilverFeminineMedal();
+			if(output == 0) {
+				output = A.getBronzeFeminineMedal() - B.getBronzeFeminineMedal();
+				if(output == 0) {
+					output = B.getName().compareTo(A.getName());
+				}
+			}
+		}	
+		return output;
 	}
 
 }
