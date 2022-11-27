@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+
+<AnchorPane fx:id="mainAP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../styles/init-window.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane fx:id="pageP" layoutY="50.0" prefHeight="670.0" prefWidth="1280.0" styleClass="mainPane" />
+      <Pane fx:id="headerP" prefHeight="40.0" prefWidth="1280.0">
+         <children>
+            <ImageView fx:id="closeBTN" fitHeight="40.0" fitWidth="40.0" layoutX="1220.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/cancel.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="minimizeBTN" fitHeight="40.0" fitWidth="40.0" layoutX="1160.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/minimize.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
